@@ -1,0 +1,19 @@
+version: '2.3'
+
+services:
+  dimvr-pytorch:
+    runtime: nvidia
+    image: dimvr-pytorch-env
+    ipc: host
+    build:
+      context: .
+      args:
+        - UID
+        - GID
+        - USER_PASSWORD
+    command: bash -c "jupyter lab --ip=0.0.0.0 --NotebookApp.token='' --NotebookApp.password='' --allow-root"
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./workspace/:/home/src
+      - /home/dennis/datasets/:/home/datasets
